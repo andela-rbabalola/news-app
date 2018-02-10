@@ -20,14 +20,15 @@ class Header extends React.Component {
     }
 
     render() {
+        const { flatButtonStyle, toolBarGroupStyle } = this.getStyle();
         return (
             <Toolbar>
-                <ToolbarGroup firstChild={true} style={{ marginLeft: '10px' }}>
-                    <FlatButton label={'Politics'} style={{ marginLeft: '0px', marginRight: '0px' }} />
-                    <FlatButton label={'Entertainment'} style={{ marginLeft: '0px', marginRight: '0px' }} />
-                    <FlatButton label={'Tech'} style={{ marginLeft: '0px', marginRight: '0px' }} />
-                    <FlatButton label={'Sports'} style={{ marginLeft: '0px', marginRight: '0px' }} />
-                    <FlatButton label={'Lifestyle'} style={{ marginLeft: '0px', marginRight: '0px' }} />
+                <ToolbarGroup firstChild={true} style={toolBarGroupStyle}>
+                    <FlatButton label={'Politics'} style={flatButtonStyle} />
+                    <FlatButton label={'Entertainment'} style={flatButtonStyle} />
+                    <FlatButton label={'Tech'} style={flatButtonStyle} />
+                    <FlatButton label={'Sports'} style={flatButtonStyle} />
+                    <FlatButton label={'Lifestyle'} style={flatButtonStyle} />
                 </ToolbarGroup>
                 <ToolbarGroup>
                     <ToolbarSeparator />
@@ -45,6 +46,18 @@ class Header extends React.Component {
                 </ToolbarGroup>
             </Toolbar>
         );
+    }
+
+    getStyle() {
+        return {
+            flatButtonStyle: {
+                marginLeft: '0px',
+                marginRight: '0px',
+            },
+            toolBarGroupStyle: {
+                marginLeft: '0px',
+            }
+        };
     }
 }
 
