@@ -8,8 +8,9 @@ import { observable, action, useStrict } from 'mobx';
 useStrict(true);
 
 class NewsAppStore {
-    @observable newsData: any[];
+    @observable newsData: any;
     @observable isLoading = true;
+    @observable errorOccured = false;
 
     @action('getNewsData')
     getNewsData() {
@@ -18,12 +19,31 @@ class NewsAppStore {
         axios.get(url).then(response => {
             this.setNewsData(response.data);
             this.stopLoading();
+        }).catch(error => {
+            this.setErrorOccured();
         });
     }
 
+    @action('retry')
+    retry() {
+        // set loading to true
+        this.isLoading = true;
+        // stop error
+        this.errorOccured = false;
+        // try to get data again
+        this.getNewsData();
+    }
+
     @action('setNewsData')
-    private setNewsData = (data: any[]) => {
+    private setNewsData = (data: any) => {
         this.newsData = data;
+    }
+
+    @action('setErrorOccured')
+    private setErrorOccured = () => {
+        this.errorOccured = true;
+        // since an error occured, stop loading
+        this.stopLoading();
     }
 
     @action('stopLoading')
